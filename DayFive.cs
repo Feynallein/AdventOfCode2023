@@ -52,7 +52,7 @@ internal class DayFive {
 		List<(long, long)> computedRanges = [];
 		List<long> res = [];
 
-		for(int i = 0; i < ranges.Count; i += 2) {
+		for(int i = 0; i < 2 /*ranges.Coun*/; i += 2) {
 			computedRanges.Add((ranges[i], ranges[i] + ranges[i + 1]));
 		}
 
@@ -106,13 +106,22 @@ internal class DayFive {
 	private static List<long> TransfoToRange(List<long> data, List<List<long>> transfo) {
 		List<long> res = [];
 
-		foreach(long value in data) {
+		Parallel.ForEach(data, value => {
+			long transformed = ApplyTransformation(value, transfo);
+
+			if (!res.Contains(transformed)) {
+				res.Add(transformed);
+			}
+		});
+
+		/*foreach(long value in data) {
+			Console.WriteLine(value);
 			long transformed = ApplyTransformation(value, transfo);
 
 			if(!res.Contains(transformed)) {
 				res.Add(transformed);
 			}
-		}
+		}*/
 
 		return res;
 	}
