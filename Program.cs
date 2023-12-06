@@ -6,6 +6,7 @@ class Program {
 		// _ = new DayTwo();
 		// _ = new DayThree();
 		// _ = new DayFour();
-		_ = new DayFive();
+		// _ = new DayFive();
+		_ = new DaySix();
 	}
 }
