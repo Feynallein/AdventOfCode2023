@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace AdventOfCode2023;
 
@@ -16,21 +9,22 @@ namespace AdventOfCode2023;
 	const string _testSetP2 = "LR\r\n\r\n11A = (11B, XXX)\r\n11B = (XXX, 11Z)\r\n11Z = (11B, XXX)\r\n22A = (22B, XXX)\r\n22B = (22C, 22C)\r\n22C = (22Z, 22Z)\r\n22Z = (22B, 22B)\r\nXXX = (XXX, XXX)";
 
 	public DayEight() {
-		// Console.WriteLine("" + PartOne(_dataSet));
-		Console.WriteLine("" + PartTwo(_dataSet));
+		Console.WriteLine("\n*** Day Eight ***\n");
+		Console.WriteLine("Number of step in path: " + PartOne(_dataSet));
+		Console.WriteLine("Number of steps in quantic paths when all to Z: " + PartTwo(_dataSet));
 	}
 
-	private static int PartOne(string data) {
+	private static long PartOne(string data) {
 		string[] parts = data.Split("\r\n\r\n");
 		return SolveFor("AAA", parts[0], MapNodes(parts[1]));
 	}
 
-	private static int SolveFor(string start, string path, Dictionary<string, (string, string)> nodes) {
-		int count = 0;
+	private static long SolveFor(string start, string path, Dictionary<string, (string, string)> nodes) {
+		long count = 0;
 		string location = start;
 
 		while (!location.Contains('Z')) {
-			location = path[count % path.Length] == 'R' ? nodes[location].Item2 : nodes[location].Item1;
+			location = path[(int) count % path.Length] == 'R' ? nodes[location].Item2 : nodes[location].Item1;
 			count++;
 		}
 
@@ -48,18 +42,13 @@ namespace AdventOfCode2023;
 		return res;
 	}
 
-	private int PartTwo(string data) {
+	private long PartTwo(string data) {
 		string[] parts = data.Split("\r\n\r\n");
-		List<int> paths = GetStartingPoints(parts[1]).Select(loc => SolveFor(loc, parts[0], MapNodes(parts[1]))).ToList();
+		List<long> paths = GetStartingPoints(parts[1]).Select(loc => SolveFor(loc, parts[0], MapNodes(parts[1]))).ToList();
 
-		foreach(int i in paths) {
-			Console.WriteLine(i);
-		}
-
-		return paths.Aggregate(paths[0], Lcm);
+		return paths.Aggregate(paths[0], LCM);
 	}
 
-	// 1897214023 (too low)
 
 	private List<string> GetStartingPoints(string data) {
 		string[] lines = data.Split("\r\n");
@@ -75,14 +64,11 @@ namespace AdventOfCode2023;
 		return res;
 	}
 
-	private static int Gcd(int a, int b) {
-		while (b != 0) {
-			(a, b) = (b, a % b);
-		}
-		return a;
+	private static long GCD(long a, long b) {
+		return b == 0 ? a : GCD(b, a % b);
 	}
 
-	private static int Lcm(int a, int b) {
-		return Math.Abs(a * b) / Gcd(a, b);
+	private static long LCM(long a, long b) {
+		return Math.Abs(a * b) / GCD(a, b);
 	}
 }

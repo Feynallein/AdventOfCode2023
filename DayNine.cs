@@ -5,6 +5,7 @@ internal class DayNine {
 	const string _testSet = "0 3 6 9 12 15\r\n1 3 6 10 15 21\r\n10 13 16 21 30 45";
 
 	public DayNine() {
+		Console.WriteLine("\n*** Day Nine ***\n");
 		Console.WriteLine("Sum of extrapolations: " + PartOne(_dataSet));
 		Console.WriteLine("Sum of backward extrapolations: " + PartTwo(_dataSet));
 	}

@@ -5,11 +5,12 @@ internal class DaySix {
 	const string _dataSet = "Time: 53 83 72 88\r\nDistance: 333 1635 1289 1532"; 
 
 	public DaySix() {
+		Console.WriteLine("\n*** Day Six ***\n");
 		Console.WriteLine("Number of ways for multiple races: " + PartOne(_dataSet)); 
 		Console.WriteLine("Number of ways for the big record: " + PartTwo(_dataSet));
 	}
 
-	private int PartOne(string data) {
+	private static int PartOne(string data) {
 		return ValidTimes(MapTimeDistance(data)).Aggregate(1, (value, acc) => value * acc);
 	}
 
