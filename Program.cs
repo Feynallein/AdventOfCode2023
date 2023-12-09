@@ -9,6 +9,7 @@ class Program {
 		// _ = new DayFive();
 		// _ = new DaySix();
 		// _ = new DaySeven();
-		_ = new DayEight();
+		// _ = new DayEight();
+		_ = new DayNine();
 	}
 }
